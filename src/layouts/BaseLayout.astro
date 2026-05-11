@@ -1,0 +1,64 @@
+---
+import "../styles/global.css";
+
+type Props = {
+  title: string;
+  description: string;
+};
+
+const { title, description } = Astro.props as Props;
+const canonicalUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : null;
+const siteTitle = "Sen Monorom Local Guide";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#234e38" />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="site-brand" href="/" aria-label={siteTitle}>
+          <img class="site-brand-mark" src="/brand/logo-mark.svg" alt="" width="44" height="44" />
+          <span class="site-brand-text">
+            <span class="site-brand-title">Sen Monorom</span>
+            <span class="site-brand-subtitle">Local Guide</span>
+          </span>
+        </a>
+        <nav aria-label="Primary navigation" class="site-nav">
+          <a href="/cafes">Cafes</a>
+          <a href="/restaurants">Restaurants</a>
+          <a href="/guesthouses">Guesthouses</a>
+          <a href="/tours">Tours</a>
+          <a href="/motorbike-rentals">Motorbike Rentals</a>
+          <a href="/submit-business">Submit Business</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>{siteTitle} is being built carefully with owner-confirmed details and field verification.</p>
+        <p>
+          <a class="footer-link" href="/submit-business">
+            Own a business in Sen Monorom? Submit your details for a free listing.
+          </a>
+        </p>
+        <p>Last updated: May 8, 2026</p>
+        <p>Business details may change. Please contact the business directly before visiting, booking, or traveling.</p>
+      </div>
+    </footer>
+  </body>
+</html>

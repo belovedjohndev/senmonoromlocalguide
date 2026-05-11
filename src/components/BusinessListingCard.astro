@@ -1,0 +1,100 @@
+---
+import { categoryLabels, hasExternalFacebookUrl, type BusinessListing } from "../data/businessListings";
+
+type Props = {
+  listing: BusinessListing;
+  headingTag?: "h2" | "h3";
+};
+
+const { listing, headingTag = "h3" } = Astro.props as Props;
+const HeadingTag = headingTag;
+const formatter = new Intl.DateTimeFormat("en-US", {
+  dateStyle: "long",
+  timeZone: "UTC"
+});
+
+const listingInitials = listing.name
+  .split(/\s+/)
+  .filter(Boolean)
+  .slice(0, 2)
+  .map((word) => word[0]?.toUpperCase() ?? "")
+  .join("");
+---
+
+<article class="listing-card">
+  <div class="listing-media">
+    {listing.photoUrl ? (
+      <>
+        <img
+          class="listing-photo"
+          src={listing.photoUrl}
+          alt={listing.photoAlt ?? `${listing.name} photo`}
+          loading="lazy"
+        />
+        {listing.logoUrl && (
+          <div class="listing-logo-badge">
+            <img class="listing-logo" src={listing.logoUrl} alt={`${listing.name} logo`} loading="lazy" />
+          </div>
+        )}
+      </>
+    ) : (
+      <div class="listing-media-fallback" aria-label={`Placeholder for ${listing.name} photo`}>
+        {listing.logoUrl ? (
+          <img class="listing-logo" src={listing.logoUrl} alt={`${listing.name} logo`} loading="lazy" />
+        ) : (
+          <span class="listing-initials" aria-hidden="true">{listingInitials}</span>
+        )}
+        <p class="listing-media-note">Owner-approved photo can be added here.</p>
+      </div>
+    )}
+  </div>
+
+  <div class="listing-header">
+    <div>
+      <HeadingTag>{listing.name}</HeadingTag>
+      <div class="tag-row" aria-label="Business categories">
+        {listing.category.map((category) => <span class="tag">{categoryLabels[category]}</span>)}
+      </div>
+    </div>
+    <div class="badge-row">
+      <span class="badge badge-verified">Verified</span>
+    </div>
+  </div>
+
+  <p>{listing.description}</p>
+
+  <ul class="meta-list">
+    {listing.openingHours && (
+      <li>
+        <span class="meta-label">Opening hours:</span> {listing.openingHours}
+      </li>
+    )}
+    {listing.phone && (
+      <li>
+        <span class="meta-label">Phone:</span>{" "}
+        <a href={`tel:${listing.phone.replace(/\s+/g, "")}`}>{listing.phone}</a>
+      </li>
+    )}
+    <li>
+      <span class="meta-label">Location:</span> {listing.locationLabel}
+    </li>
+    <li>
+      <span class="meta-label">Owner-confirmed:</span>{" "}
+      {formatter.format(new Date(`${listing.verifiedAt}T00:00:00Z`))}
+    </li>
+  </ul>
+
+  <div class="button-row">
+    <a class="button" href={listing.googleMapsUrl} target="_blank" rel="noreferrer">
+      Open in Google Maps
+    </a>
+    <a class="button-secondary" href="tel:0882472112">
+      Call now
+    </a>
+    {hasExternalFacebookUrl(listing.facebookUrl) && (
+      <a class="button-secondary" href={listing.facebookUrl} target="_blank" rel="noreferrer">
+        View Facebook Page
+      </a>
+    )}
+  </div>
+</article>

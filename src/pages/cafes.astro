@@ -1,0 +1,28 @@
+---
+import BusinessListingCard from "../components/BusinessListingCard.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getListingsByCategory } from "../data/businessListings";
+
+const listings = getListingsByCategory("cafe");
+---
+
+<BaseLayout
+  title="Cafes in Sen Monorom | Sen Monorom Local Guide"
+  description="Verified and owner-confirmed cafe listings in Sen Monorom, Mondulkiri."
+>
+  <section>
+    <div class="container">
+      <div class="content-panel page-header">
+        <h1>Cafes</h1>
+        <p>
+          These cafe listings are being published carefully using owner-confirmed details and direct
+          verification.
+        </p>
+      </div>
+
+      <div class="grid listing-grid">
+        {listings.map((listing) => <BusinessListingCard listing={listing} headingTag="h2" />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

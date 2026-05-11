@@ -1,0 +1,14 @@
+<svg width="512" height="160" viewBox="0 0 512 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="8" y="16" width="128" height="128" rx="32" fill="#234E38"/>
+  <circle cx="72" cy="54" r="18" fill="#D8A74A"/>
+  <path d="M20 102C33 86 47 78 62 78C79 78 93 88 103 104C112 98 122 94 136 92V144H8V122C11 116 15 109 20 102Z" fill="#88B79B"/>
+  <path d="M8 124C24 110 41 104 59 104C76 104 92 111 108 124V144H8V124Z" fill="#4F7B5D"/>
+  <path d="M72 84C63 96 56 108 50 120C45 131 41 139 39 144H65C66 137 70 128 76 116C82 105 89 94 98 84H72Z" fill="#F4EBDD"/>
+  <path d="M8 124C24 110 41 104 59 104C76 104 92 111 108 124" stroke="#DDEBDD" stroke-width="4" stroke-linecap="round"/>
+  <text x="164" y="72" fill="#1F2A21" font-family="Georgia, 'Times New Roman', serif" font-size="38" font-weight="700" letter-spacing="-0.02em">
+    Sen Monorom
+  </text>
+  <text x="164" y="108" fill="#2F6B4A" font-family="'Trebuchet MS', 'Segoe UI', sans-serif" font-size="22" font-weight="700" letter-spacing="0.18em">
+    LOCAL GUIDE
+  </text>
+</svg>

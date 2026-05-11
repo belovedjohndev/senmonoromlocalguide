@@ -1,0 +1,147 @@
+---
+import BusinessListingCard from "../components/BusinessListingCard.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getVerifiedListings } from "../data/businessListings";
+
+const verifiedListings = getVerifiedListings();
+
+const categoryCards = [
+  {
+    title: "Cafes",
+    href: "/cafes",
+    description: "See the first verified listings for cafes and bakery stops in Sen Monorom.",
+    ctaLabel: "Browse cafes"
+  },
+  {
+    title: "Restaurants",
+    href: "/restaurants",
+    description: "Browse owner-confirmed places for meals, coffee, and practical tourist stops.",
+    ctaLabel: "Browse restaurants"
+  },
+  {
+    title: "Guesthouses",
+    href: "/guesthouses",
+    description: "Guesthouse listings are being verified and will be added carefully over time.",
+    ctaLabel: "View guesthouse updates"
+  },
+  {
+    title: "Tours",
+    href: "/tours",
+    description: "Tour listings are being verified before they appear in the guide.",
+    ctaLabel: "View tour updates"
+  },
+  {
+    title: "Motorbike Rentals",
+    href: "/motorbike-rentals",
+    description: "Motorbike rental details are being verified to keep information practical and reliable.",
+    ctaLabel: "View rental updates"
+  },
+  {
+    title: "Submit Business",
+    href: "/submit-business",
+    description: "Local owners can request a free listing by sharing owner-confirmed business details.",
+    ctaLabel: "Submit free listing"
+  }
+];
+---
+
+<BaseLayout
+  title="Sen Monorom Local Guide | Verified Local Businesses in Mondulkiri"
+  description="A simple verified guide to local cafes, restaurants, guesthouses, tours, motorbike rentals, and local products in Sen Monorom, Mondulkiri."
+>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-stage">
+        <div
+          class="hero-media"
+          role="img"
+          aria-label="Chrey Thom Waterfall in Mondulkiri used as the homepage background"
+        ></div>
+        <div class="hero-content">
+          <div class="eyebrow hero-eyebrow">First owner-confirmed listings now being added</div>
+          <h1 class="hero-title">Sen Monorom Local Guide</h1>
+          <p class="lead hero-lead">
+            Find verified cafes, restaurants, stays, tours, and rentals in Sen Monorom, Mondulkiri.
+          </p>
+          <p class="hero-note">
+            Built from owner-confirmed details and local field verification.
+          </p>
+          <div class="button-row hero-actions">
+            <a class="button" href="#verified-listings">Browse verified listings</a>
+            <a class="button-secondary hero-button-outline" href="/submit-business">Submit a business</a>
+          </div>
+        </div>
+      </div>
+      <p class="hero-credit hero-credit-below">
+        Hero image adapted from a public-domain photo of Chrey Thom Waterfall in Mondulkiri.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-heading">
+        <h2>Browse the guide</h2>
+        <p>The directory is still being expanded, so each section reflects what has already been verified.</p>
+      </div>
+      <div class="grid category-grid">
+        {
+          categoryCards.map((card) => (
+            <a class="category-card" href={card.href}>
+              <div>
+                <h3>{card.title}</h3>
+                <p>{card.description}</p>
+              </div>
+              <span class="card-link">{card.ctaLabel}</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="content-panel trust-panel">
+        <div class="section-heading">
+          <h2>Why this guide is verified</h2>
+          <p>
+            We are building this guide from owner-confirmed details and field verification, not copied
+            directory data. Listings are added carefully so tourists can find active local businesses
+            in Sen Monorom.
+          </p>
+        </div>
+        <div class="trust-points" aria-label="Verification approach">
+          <div class="trust-point">Owner-confirmed details</div>
+          <div class="trust-point">Local field verification</div>
+          <div class="trust-point">Free listing for local businesses</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="verified-listings">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Verified listings</h2>
+        <p>
+          These are the first verified listings currently published in the guide with owner-confirmed
+          details.
+        </p>
+      </div>
+      <div class="grid listing-grid">
+        {verifiedListings.map((listing) => <BusinessListingCard listing={listing} headingTag="h3" />)}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="cta-panel">
+        <h2>Free listing for local businesses</h2>
+        <p>Own a business in Sen Monorom? Submit your details for a free listing.</p>
+        <a class="button" href="/submit-business">Submit your business</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
